@@ -14,11 +14,23 @@ services:
       - ../..:/workspaces:cached
     env_file:
       - .env
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 3011:8080
+    networks:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DEFAULT_USERNAME: ${POSTGRES_USER}
+      ADMINER_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMINER_DESIGN: dracula
   db:
     image: postgres:15.3-alpine
     restart: unless-stopped
     ports:
-      - 5432:5432
+      - 3012:5432
     networks:
       - db
     volumes:
@@ -29,15 +41,15 @@ services:
     image: redis:latest
     restart: unless-stopped
     ports:
-      - 6379:6379
+      - 3013:6379
     networks:
       - redis
   mailer:
     image: mailtutan/mailtutan:latest
     restart: unless-stopped
     ports:
-      - 1080:1080
-      - 1025:1025
+      - 3014:1080
+      - 3015:1025
     networks:
       - mailer
 

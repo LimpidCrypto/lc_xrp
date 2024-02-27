@@ -37,6 +37,10 @@ fluent-templates = { version = "0.8.0", features = ["tera"] }
 unic-langid = "0.9.4"
 # /view engine
 
+[dependencies.lc_user]
+git = "https://github.com/LimpidCrypto/lc_user.git"
+rev = "063e939"
+
 [[bin]]
 name = "lc_api_template-cli"
 path = "src/bin/main.rs"

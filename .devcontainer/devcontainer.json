@@ -1,9 +1,12 @@
 {
-    "name": "Loco",
+    "name": "lc_api_template",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
     "forwardPorts": [
-        3000
-    ]
+        3000,
+        3001,
+        3002
+    ],
+    "postStartCommand": "cargo install loco-cli"
 }
