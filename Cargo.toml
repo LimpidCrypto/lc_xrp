@@ -39,7 +39,7 @@ unic-langid = "0.9.4"
 
 [dependencies.lc_user]
 git = "https://github.com/LimpidCrypto/lc_user.git"
-rev = "063e939"
+rev = "fddccc6"
 
 [[bin]]
 name = "lc_api_template-cli"
