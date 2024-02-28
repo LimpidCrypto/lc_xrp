@@ -2,12 +2,13 @@
 
 ## TODOs before making changes
 ### Cargo.toml
-- [ ] Change `package.name`
+- [x] Change `package.name`
+- [x] Change `bin.name`
 ### .devcontainer
-- [ ] Adjust $POSTGRES_DB
-- [ ] Adjust $DATABASE_URL
-- [ ] Adjust $USER_DATABASE_URL
-- [ ] Rename Devcontainer
-- [ ] Adjust Ports
+- [x] Adjust $POSTGRES_DB
+- [x] Adjust $DATABASE_URL
+- [x] Adjust $USER_DATABASE_URL
+- [x] Rename Devcontainer
+- [x] Adjust Ports
 ### Config
-- [ ] make sure JWT secret match
+- [x] make sure JWT secret match

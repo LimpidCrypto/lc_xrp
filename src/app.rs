@@ -16,7 +16,7 @@ use loco_rs::{
 use migration::Migrator;
 use sea_orm::DatabaseConnection;
 
-use crate::{initializers, tasks};
+use crate::{controllers, initializers, tasks};
 
 pub struct App;
 #[async_trait]
@@ -46,7 +46,9 @@ impl Hooks for App {
     }
 
     fn routes(_ctx: &AppContext) -> AppRoutes {
-        AppRoutes::with_default_routes().prefix("/api/v1")
+        AppRoutes::with_default_routes()
+            .prefix("/api/v1/:network")
+            .add_route(controllers::wallet::routes())
     }
 
     fn connect_workers<'a>(_p: &'a mut Processor, _ctx: &'a AppContext) {}
