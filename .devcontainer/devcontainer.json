@@ -1,5 +1,5 @@
 {
-    "name": "lc_api_template",
+    "name": "lc_saas_template",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",

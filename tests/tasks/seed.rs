@@ -15,8 +15,8 @@
 //! ```
 use std::collections::BTreeMap;
 
+use lc_saas_template::app::App;
 use loco_rs::{db, prelude::*};
-use lc_api_template::app::App;
 use migration::Migrator;
 
 #[allow(clippy::module_name_repetitions)]

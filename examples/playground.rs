@@ -1,7 +1,7 @@
 use eyre::Context;
+use lc_saas_template::app::App;
 #[allow(unused_imports)]
 use loco_rs::{cli::playground, prelude::*};
-use lc_api_template::app::App;
 
 #[tokio::main]
 async fn main() -> eyre::Result<()> {

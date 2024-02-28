@@ -78,8 +78,8 @@ server:
       precompressed: false
       folder:
         uri: "/"
-        path: "frontend/dist"
-      fallback: "frontend/dist/index.html"
+        path: "frontend/dist/frontend/browser"
+      fallback: "frontend/dist/frontend/browser/index.html"
 
 # Worker Configuration
 workers:
@@ -108,7 +108,7 @@ mailer:
 # Database Configuration
 database:
   # Database connection URI
-  uri: {{ get_env(name="DATABASE_URL", default="postgres://loco:loco@localhost:5432/lc_api_template_development") }}
+  uri: {{ get_env(name="DATABASE_URL", default="postgres://loco:loco@localhost:5432/lc_saas_template_development") }}
   # When enabled, the sql query will be logged.
   enable_logging: false
   # Set the timeout duration when acquiring a connection.

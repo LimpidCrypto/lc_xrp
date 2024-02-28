@@ -5,4 +5,10 @@ RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
      && cargo install sea-orm-cli cargo-insta \
      && chown -R vscode /usr/local/cargo
 
+# Install Node.js and npm
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+    && apt-get install -y nodejs
+# Install Angular CLI
+RUN npm install -g @angular/cli
+
 COPY .env /.env

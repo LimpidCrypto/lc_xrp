@@ -7,7 +7,7 @@ use loco_rs::{
     boot::{create_app, BootResult, StartMode},
     config::Database,
     controller::AppRoutes,
-    db::{self, truncate_table},
+    db,
     environment::Environment,
     task::Tasks,
     worker::Processor,
@@ -16,7 +16,7 @@ use loco_rs::{
 use migration::Migrator;
 use sea_orm::DatabaseConnection;
 
-use crate::{controllers, initializers, models::_entities::notes, tasks};
+use crate::{initializers, tasks};
 
 pub struct App;
 #[async_trait]
@@ -46,9 +46,7 @@ impl Hooks for App {
     }
 
     fn routes(_ctx: &AppContext) -> AppRoutes {
-        AppRoutes::with_default_routes()
-            .prefix("/api/v1")
-            .add_route(controllers::notes::routes())
+        AppRoutes::with_default_routes().prefix("/api/v1")
     }
 
     fn connect_workers<'a>(_p: &'a mut Processor, _ctx: &'a AppContext) {}
@@ -57,13 +55,11 @@ impl Hooks for App {
         tasks.register(tasks::seed::SeedData);
     }
 
-    async fn truncate(db: &DatabaseConnection) -> Result<()> {
-        truncate_table(db, notes::Entity).await?;
+    async fn truncate(_db: &DatabaseConnection) -> Result<()> {
         Ok(())
     }
 
-    async fn seed(db: &DatabaseConnection, base: &Path) -> Result<()> {
-        db::seed::<notes::ActiveModel>(db, &base.join("notes.yaml").display().to_string()).await?;
+    async fn seed(_db: &DatabaseConnection, _base: &Path) -> Result<()> {
         Ok(())
     }
 
