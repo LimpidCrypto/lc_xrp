@@ -32,12 +32,7 @@ pub async fn list(
     auth: auth::JWT,
     Extension(user_db): Extension<DatabaseConnection>,
 ) -> Result<Json<Vec<Model>>> {
-    dbg!(auth.claims.pid.clone());
-    dbg!(user_db.clone());
-    let u = users::Model::find_by_email(&user_db, "steffen.konermann@gmail.com").await?;
-    dbg!(u);
     let user = users::Model::find_by_pid(&user_db, &auth.claims.pid).await?;
-    dbg!(user);
     format::json(Entity::find().all(&ctx.db).await?)
 }
 
