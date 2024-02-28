@@ -8,5 +8,24 @@
         3011,
         3012
     ],
-    "postStartCommand": "cargo install loco-cli"
+    "postStartCommand": "cargo install loco-cli",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                // general
+                "usernamehw.errorlens",
+                "naumovs.color-highlight",
+                "shd101wyy.markdown-preview-enhanced",
+                "IBM.output-colorizer",
+                "aaron-bond.better-comments",
+                // rust
+                "rust-lang.rust-analyzer",
+                "vadimcn.vscode-lldb",
+                "serayuzgur.crates",
+                "tamasfe.even-better-toml",
+                // other
+                "GitHub.copilot"
+            ]
+        }
+    }
 }
