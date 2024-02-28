@@ -1,0 +1,62 @@
+version: "3"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: sleep infinity
+    networks:
+      - db
+      - redis
+      - mailer
+    volumes:
+      - ../..:/workspaces:cached
+    env_file:
+      - .env
+  adminer:
+    image: adminer:latest
+    restart: always
+    ports:
+      - 3011:8080
+    networks:
+      - db
+    environment:
+      ADMINER_DEFAULT_SERVER: db
+      ADMINER_DEFAULT_USERNAME: ${POSTGRES_USER}
+      ADMINER_DEFAULT_PASSWORD: ${POSTGRES_PASSWORD}
+      ADMINER_DESIGN: dracula
+  db:
+    image: postgres:15.3-alpine
+    restart: unless-stopped
+    ports:
+      - 3012:5432
+    networks:
+      - db
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+  redis:
+    image: redis:latest
+    restart: unless-stopped
+    ports:
+      - 3013:6379
+    networks:
+      - redis
+  mailer:
+    image: mailtutan/mailtutan:latest
+    restart: unless-stopped
+    ports:
+      - 3014:1080
+      - 3015:1025
+    networks:
+      - mailer
+
+volumes:
+  postgres-data:
+
+networks:
+  db:
+  redis:
+  mailer:
