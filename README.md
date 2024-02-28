@@ -6,6 +6,7 @@
 ### .devcontainer
 - [ ] Adjust $POSTGRES_DB
 - [ ] Adjust $DATABASE_URL
+- [ ] Adjust $USER_DATABASE_URL
 - [ ] Rename Devcontainer
 - [ ] Adjust Ports
 ### Config
