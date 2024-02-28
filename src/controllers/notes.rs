@@ -1,7 +1,10 @@
 #![allow(clippy::missing_errors_doc)]
 #![allow(clippy::unnecessary_struct_initialization)]
 #![allow(clippy::unused_async)]
+use axum::Extension;
+use lc_user::models::users;
 use loco_rs::prelude::*;
+use sea_orm::DatabaseConnection;
 use serde::{Deserialize, Serialize};
 
 use crate::models::_entities::notes::{ActiveModel, Entity, Model};
@@ -24,7 +27,17 @@ async fn load_item(ctx: &AppContext, id: i32) -> Result<Model> {
     item.ok_or_else(|| Error::NotFound)
 }
 
-pub async fn list(State(ctx): State<AppContext>) -> Result<Json<Vec<Model>>> {
+pub async fn list(
+    State(ctx): State<AppContext>,
+    auth: auth::JWT,
+    Extension(user_db): Extension<DatabaseConnection>,
+) -> Result<Json<Vec<Model>>> {
+    dbg!(auth.claims.pid.clone());
+    dbg!(user_db.clone());
+    let u = users::Model::find_by_email(&user_db, "steffen.konermann@gmail.com").await?;
+    dbg!(u);
+    let user = users::Model::find_by_pid(&user_db, &auth.claims.pid).await?;
+    dbg!(user);
     format::json(Entity::find().all(&ctx.db).await?)
 }
 

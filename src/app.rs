@@ -1,25 +1,22 @@
 use std::path::Path;
 
 use async_trait::async_trait;
+use axum::Extension;
 use loco_rs::{
     app::{AppContext, Hooks, Initializer},
     boot::{create_app, BootResult, StartMode},
+    config::Database,
     controller::AppRoutes,
     db::{self, truncate_table},
     environment::Environment,
     task::Tasks,
-    worker::{AppWorker, Processor},
+    worker::Processor,
     Result,
 };
 use migration::Migrator;
 use sea_orm::DatabaseConnection;
 
-use crate::{
-    controllers, initializers,
-    models::_entities::{notes, users},
-    tasks,
-    workers::downloader::DownloadWorker,
-};
+use crate::{controllers, initializers, models::_entities::notes, tasks};
 
 pub struct App;
 #[async_trait]
@@ -52,27 +49,39 @@ impl Hooks for App {
         AppRoutes::with_default_routes()
             .prefix("/api/v1")
             .add_route(controllers::notes::routes())
-            .add_route(controllers::auth::routes())
-            .add_route(controllers::user::routes())
     }
 
-    fn connect_workers<'a>(p: &'a mut Processor, ctx: &'a AppContext) {
-        p.register(DownloadWorker::build(ctx));
-    }
+    fn connect_workers<'a>(_p: &'a mut Processor, _ctx: &'a AppContext) {}
 
     fn register_tasks(tasks: &mut Tasks) {
         tasks.register(tasks::seed::SeedData);
     }
 
     async fn truncate(db: &DatabaseConnection) -> Result<()> {
-        truncate_table(db, users::Entity).await?;
         truncate_table(db, notes::Entity).await?;
         Ok(())
     }
 
     async fn seed(db: &DatabaseConnection, base: &Path) -> Result<()> {
-        db::seed::<users::ActiveModel>(db, &base.join("users.yaml").display().to_string()).await?;
         db::seed::<notes::ActiveModel>(db, &base.join("notes.yaml").display().to_string()).await?;
         Ok(())
+    }
+
+    async fn after_routes(router: axum::Router, _ctx: &AppContext) -> Result<axum::Router> {
+        let uri: &str = env!("DATABASE_URL");
+        let user_db_config = Database {
+            uri: uri.to_string(),
+            enable_logging: false,
+            min_connections: 2,
+            max_connections: 10,
+            connect_timeout: 500,
+            idle_timeout: 500,
+            auto_migrate: false,
+            dangerously_truncate: false,
+            dangerously_recreate: false,
+        };
+        let user_db = db::connect(&user_db_config).await?;
+
+        Ok(router.layer(Extension(user_db)))
     }
 }

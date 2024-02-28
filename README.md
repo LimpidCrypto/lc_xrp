@@ -8,3 +8,5 @@
 - [ ] Adjust $DATABASE_URL
 - [ ] Rename Devcontainer
 - [ ] Adjust Ports
+### Config
+- [ ] make sure JWT secret match
