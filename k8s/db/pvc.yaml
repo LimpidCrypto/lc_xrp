@@ -1,13 +1,12 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: lc-db-pvc
+  name: lc-saas-db-pvc
   namespace: lc-saas-ns
 spec:
+  storageClassName: lc-saas-db-sc
   resources:
     requests:
       storage: 5Gi
-  volumeMode: Filesystem
   accessModes:
     - ReadWriteOnce
-  storageClassName: lc-db-sc

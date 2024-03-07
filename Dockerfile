@@ -29,7 +29,8 @@ WORKDIR /usr/app
 
 COPY --from=builder /usr/src/frontend/dist/frontend/browser /usr/app/frontend/dist/frontend/browser
 COPY --from=builder /usr/src/frontend/dist/frontend/browser/index.html /usr/app/frontend/dist/frontend/browser/index.html
+COPY --from=builder /usr/src/assets /usr/app/assets
 COPY --from=builder /usr/src/config /usr/app/config
-COPY --from=builder /usr/src/target/release/${APP_NAME}-cli /usr/app/${APP_NAME}-cli
+COPY --from=builder /usr/src/target/release/lc_saas-cli /usr/app/lc_saas-cli
 
-ENTRYPOINT ["/usr/app/${APP_NAME}-cli", "start", "-e", "production"]
+ENTRYPOINT ["/usr/app/lc_saas-cli", "start", "-e", "production"]

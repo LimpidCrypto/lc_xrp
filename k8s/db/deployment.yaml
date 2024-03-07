@@ -1,49 +1,49 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lc-db-deployment
+  name: lc-saas-db-deployment
   labels:
-    app: lc-db
+    app: lc-saas-db
   namespace: lc-saas-ns
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: lc-db
+      app: lc-saas-db
   template:
     metadata:
       labels:
-        app: lc-db
+        app: lc-saas-db
     spec:
       containers:
-        - name: lc-db
+        - name: lc-saas-db
           image: postgres:15.3-alpine
           ports:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: lc-db-pv
+              name: postgres-data
           env:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: lc-db-secret
+                  name: lc-saas-db-secret
                   key: postgres-db
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: lc-db-secret
+                  name: lc-saas-db-secret
                   key: postgres-user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: lc-db-secret
+                  name: lc-saas-db-secret
                   key: postgres-password
           resources:
             limits:
               memory: "128Mi"
               cpu: "500m"
       volumes:
-        - name: lc-db-pv
+        - name: postgres-data
           persistentVolumeClaim:
-            claimName: lc-db-pvc
+            claimName: lc-saas-db-pvc
