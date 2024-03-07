@@ -1,7 +1,7 @@
 [workspace]
 
 [package]
-name = "lc_saas_template"
+name = "lc_saas"
 version = "0.1.0"
 edition = "2021"
 
@@ -42,7 +42,7 @@ git = "https://github.com/LimpidCrypto/lc_user.git"
 rev = "a5c801a"
 
 [[bin]]
-name = "lc_saas_template-cli"
+name = "lc_saas-cli"
 path = "src/bin/main.rs"
 required-features = []
 

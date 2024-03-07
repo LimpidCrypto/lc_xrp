@@ -1,5 +1,5 @@
 {
-    "name": "lc_saas_template",
+    "name": "lc_saas",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -8,7 +8,7 @@
         3011,
         3012
     ],
-    "postStartCommand": "cargo install loco-cli",
+    "postStartCommand": "cargo install loco-cli && brew install k9s && chmod a+x /workspaces/${localWorkspaceFolderBasename}/bin/*",
     "customizations": {
         "vscode": {
             "extensions": [
@@ -18,14 +18,26 @@
                 "shd101wyy.markdown-preview-enhanced",
                 "IBM.output-colorizer",
                 "aaron-bond.better-comments",
-                // rust
+                "GitHub.copilot",
+                // project
                 "rust-lang.rust-analyzer",
                 "vadimcn.vscode-lldb",
                 "serayuzgur.crates",
                 "tamasfe.even-better-toml",
-                // other
-                "GitHub.copilot"
+                "ms-kubernetes-tools.vscode-kubernetes-tools"
             ]
         }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "enableNonRootDocker": "true",
+            "moby": "true"
+        },
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+            "version": "latest",
+            "helm": "latest",
+            "minikube": "latest"
+        },
+        "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {}
     }
 }

@@ -1,5 +1,5 @@
 use eyre::Context;
-use lc_saas_template::app::App;
+use lc_saas::app::App;
 #[allow(unused_imports)]
 use loco_rs::{cli::playground, prelude::*};
 

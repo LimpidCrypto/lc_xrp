@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lc-app-deployment
+  labels:
+    app: lc-app
+  namespace: lc-saas-ns
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: lc-app
+  template:
+    metadata:
+      labels:
+        app: lc-app
+    spec:
+      containers:
+        - name: lc-app
+          image: limpidcrypto/lc:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: lc-db-secret
+                  key: postgres-db
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: lc-db-secret
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lc-db-secret
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@lc-db-service:5432/${POSTGRES_DB}
+            - name: REDIS_URL
+              value: redis://lc-redis-service:6379
+            - name: MAILER_HOST
+              value: lc-mailer-service
+          # - name: USER_DATABASE_URL
+          #   value: ""

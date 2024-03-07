@@ -1,25 +1,35 @@
-FROM mcr.microsoft.com/vscode/devcontainers/rust:1-1-bullseye
+FROM rust:1.74-slim as builder
 
-RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-     && apt-get -y install --no-install-recommends postgresql-client \
-     && apt install build-essential \
-     && chown -R vscode /usr/local/cargo
-
-# Install sea-orm-cli
-RUN cargo install sea-orm-cli
+RUN apt-get update \
+    && apt-get install -y \
+    curl
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-     && apt-get install nodejs -y
+    && apt-get install nodejs -y
 
 # Install Angular CLI
 RUN npm install -g @angular/cli
 
-# Set the working directory
-WORKDIR /workspaces/app
+WORKDIR /usr/src/
 
 COPY . .
 
-RUN cd /workspaces/app/frontend \
-     && npm install \
-     && ng build
+RUN cd /usr/src/frontend \
+    && npm install \
+    && ng build
+
+RUN cargo build --release
+
+FROM debian:bookworm-slim
+
+ARG APP_NAME=lc_saas
+
+WORKDIR /usr/app
+
+COPY --from=builder /usr/src/frontend/dist/frontend/browser /usr/app/frontend/dist/frontend/browser
+COPY --from=builder /usr/src/frontend/dist/frontend/browser/index.html /usr/app/frontend/dist/frontend/browser/index.html
+COPY --from=builder /usr/src/config /usr/app/config
+COPY --from=builder /usr/src/target/release/${APP_NAME}-cli /usr/app/${APP_NAME}-cli
+
+ENTRYPOINT ["/usr/app/${APP_NAME}-cli", "start", "-e", "production"]

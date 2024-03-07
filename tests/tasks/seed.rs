@@ -15,7 +15,7 @@
 //! ```
 use std::collections::BTreeMap;
 
-use lc_saas_template::app::App;
+use lc_saas::app::App;
 use loco_rs::{db, prelude::*};
 use migration::Migrator;
 
