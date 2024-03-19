@@ -93,7 +93,7 @@ database:
     {
       {
         get_env(name="DATABASE_URL",
-        default="postgres://loco:loco@localhost:5432/lc_saas_test"),
+        default="postgres://loco:loco@localhost:5432/lc_xrp_test"),
       },
     }
   # When enabled, the sql query will be logged.

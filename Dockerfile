@@ -23,7 +23,7 @@ RUN cargo build --release
 
 FROM debian:bookworm-slim
 
-ARG APP_NAME=lc_saas
+ARG APP_NAME=lc_xrp
 
 WORKDIR /usr/app
 
@@ -31,6 +31,6 @@ COPY --from=builder /usr/src/frontend/dist/frontend/browser /usr/app/frontend/di
 COPY --from=builder /usr/src/frontend/dist/frontend/browser/index.html /usr/app/frontend/dist/frontend/browser/index.html
 COPY --from=builder /usr/src/assets /usr/app/assets
 COPY --from=builder /usr/src/config /usr/app/config
-COPY --from=builder /usr/src/target/release/lc_saas-cli /usr/app/lc_saas-cli
+COPY --from=builder /usr/src/target/release/lc_xrp-cli /usr/app/lc_xrp-cli
 
-ENTRYPOINT ["/usr/app/lc_saas-cli", "start", "-e", "production"]
+ENTRYPOINT ["/usr/app/lc_xrp-cli", "start", "-e", "production"]
