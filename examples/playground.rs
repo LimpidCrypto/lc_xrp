@@ -1,5 +1,5 @@
 use eyre::Context;
-use lc_xrp_saas::app::App;
+use lc_xrp::app::App;
 #[allow(unused_imports)]
 use loco_rs::{cli::playground, prelude::*};
 

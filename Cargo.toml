@@ -1,7 +1,7 @@
 [workspace]
 
 [package]
-name = "lc_xrp_saas"
+name = "lc_xrp"
 version = "0.1.0"
 edition = "2021"
 
@@ -52,7 +52,7 @@ git = "https://github.com/LimpidCrypto/lc_user.git"
 rev = "a5c801a"
 
 [[bin]]
-name = "lc_xrp_saas-cli"
+name = "lc_xrp-cli"
 path = "src/bin/main.rs"
 required-features = []
 

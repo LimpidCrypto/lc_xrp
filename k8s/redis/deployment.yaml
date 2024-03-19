@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lc-saas-redis-deployment
+  labels:
+    app: lc-saas-redis
+  namespace: lc-saas-ns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: lc-saas-redis
+  template:
+    metadata:
+      labels:
+        app: lc-saas-redis
+    spec:
+      containers:
+        - name: lc-saas-redis
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: lc-saas-db-secret
+                  key: postgres-db
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: lc-saas-db-secret
+                  key: postgres-user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: lc-saas-db-secret
+                  key: postgres-password
+            - name: DATABASE_URL
+              value: postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+            - name: REDIS_URL
+              value: redis://lc-saas-redis:6379
+            - name: MAILER_HOST
+              value: lc-saas-mailer
+          # - name: USER_DATABASE_URL
+          #   value: ""

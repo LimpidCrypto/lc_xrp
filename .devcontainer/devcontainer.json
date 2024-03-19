@@ -1,5 +1,5 @@
 {
-    "name": "lc_xrp_saas",
+    "name": "lc_xrp",
     "dockerComposeFile": "docker-compose.yml",
     "service": "app",
     "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
@@ -8,9 +8,15 @@
         3011,
         3012
     ],
-    "postStartCommand": "cargo install loco-cli",
+    "postStartCommand": "cargo install loco-cli && brew install k9s && minikube addons enable ingress && chmod a+x /workspaces/${localWorkspaceFolderBasename}/bin/*",
     "customizations": {
         "vscode": {
+            "settings": {
+                "editor.formatOnSave": true,
+                "[yaml]": {
+                    "editor.formatOnSave": false
+                }
+            },
             "extensions": [
                 // general
                 "usernamehw.errorlens",
@@ -23,9 +29,22 @@
                 "vadimcn.vscode-lldb",
                 "serayuzgur.crates",
                 "tamasfe.even-better-toml",
+                "ms-kubernetes-tools.vscode-kubernetes-tools"
                 // other
                 "GitHub.copilot"
             ]
         }
+    },
+    "features": {
+        "ghcr.io/devcontainers/features/docker-in-docker:2": {
+            "enableNonRootDocker": "true",
+            "moby": "true"
+        },
+        "ghcr.io/devcontainers/features/kubectl-helm-minikube:1": {
+            "version": "latest",
+            "helm": "latest",
+            "minikube": "latest"
+        },
+        "ghcr.io/meaningful-ooo/devcontainer-features/homebrew:2": {}
     }
 }
