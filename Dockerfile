@@ -5,7 +5,8 @@ RUN apt-get update \
     curl \
     build-essential \
     pkg-config \
-    libssl-dev
+    libssl-dev \
+    libssl3
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -26,6 +27,14 @@ RUN cargo build --release
 
 FROM debian:bookworm-slim
 
+RUN apt-get update \
+    && apt-get install -y \
+    curl \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    libssl3
+
 ARG APP_NAME=lc_xrp
 
 WORKDIR /usr/app
@@ -35,5 +44,6 @@ COPY --from=builder /usr/src/frontend/dist/frontend/browser/index.html /usr/app/
 COPY --from=builder /usr/src/assets /usr/app/assets
 COPY --from=builder /usr/src/config /usr/app/config
 COPY --from=builder /usr/src/target/release/lc_xrp-cli /usr/app/lc_xrp-cli
+
 
 ENTRYPOINT ["/usr/app/lc_xrp-cli", "start", "-e", "production"]
