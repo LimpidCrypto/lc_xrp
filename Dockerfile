@@ -2,11 +2,14 @@ FROM rust:1.74-slim as builder
 
 RUN apt-get update \
     && apt-get install -y \
-    curl
+    curl \
+    build-essential \
+    pkg-config \
+    libssl-dev
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
-    && apt-get install nodejs -y
+    && apt-get install -y nodejs 
 
 # Install Angular CLI
 RUN npm install -g @angular/cli

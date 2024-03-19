@@ -19,7 +19,7 @@ spec:
       #   - name: lc-saas-app-pull-secret
       containers:
         - name: lc-saas-app
-          image: limidcrypto/lc-saas:latest
+          image: limidcrypto1/lc_xrp:blue
           ports:
             - containerPort: 80
           resources:
