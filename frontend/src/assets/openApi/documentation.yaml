@@ -7,38 +7,66 @@ info:
     name: "SAAS API Documentation"
     email: "contact@limpidcrypto.com"
 servers:
-  - url: https://api.limpidcrypto.com/api/v1/Test
+  - url: https://xrp.limpidcrypto.com/api/v1/Test
     description: "Testnet API"
-# paths:
-#   /wallet/faucet:
-#     get:
-#       summary: Finds Pets by status
-#       description: Multiple status values can be provided with comma separated strings
-#       operationId: findPetsByStatus
-#       parameters:
-#         - name: status
-#           in: query
-#           description: Status values that need to be considered for filter
-#           required: false
-#           explode: true
-#           schema:
-#             type: string
-#             default: available
-#             enum:
-#               - available
-#               - pending
-#               - sold
-#       responses:
-#         "200":
-#           description: successful operation
-#           content:
-#             application/json:
-#               schema:
-#                 type: array
-#                 items:
-#                   $ref: "#/components/schemas/Pet"
-#             application/xml:
-#               schema:
-#                 type: array
-#                 items:
-#                   $ref: "#/components/schemas/Pet"
+  - url: https://xrp.limpidcrypto.com/api/v1/Dev
+    description: "Devnet API"
+  - url: https://xrp.limpidcrypto.com/api/v1/XahauTest
+    description: "Xahau Testnet API"
+  - url: https://xrp.limpidcrypto.com/api/v1/SidechainTest
+    description: "Sidechain Testnet API"
+paths:
+  /wallet/faucet:
+    get:
+      summary: Generates a new wallet and funds it
+      description: Generates a new wallet and funds it on the selected network
+      operationId: generate_faucet_wallet
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Faucet"
+components:
+  schemas:
+    Account:
+      type: object
+      properties:
+        classic_address:
+          type: string
+        address:
+          type: string
+          nullable: true
+        xaddress:
+          type: string
+          nullable: true
+        secret:
+          type: string
+          nullable: true
+    Faucet:
+      type: object
+      properties:
+        account:
+          $ref: "#/components/schemas/Account"
+        amount:
+          type: integer
+          format: int32
+          minimum: 0
+        balance:
+          type: integer
+          format: int32
+          minimum: 0
+          nullable: true
+        trace:
+          $ref: "#/components/schemas/Trace"
+    Trace:
+      type: object
+      properties:
+        hash:
+          type: string
+          format: hash
+        code:
+          type: string
