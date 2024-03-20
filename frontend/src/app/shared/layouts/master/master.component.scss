@@ -1,0 +1,14 @@
+.master-layout__header {
+  @apply flex flex-row;
+  @apply w-full h-28;
+}
+
+.master-layout__content {
+  @apply flex flex-col;
+  @apply w-full min-h-screen;
+}
+
+.master-layout__footer {
+  @apply flex flex-row;
+  @apply w-full;
+}

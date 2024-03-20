@@ -35,8 +35,6 @@ RUN apt-get update \
     libssl-dev \
     libssl3
 
-ARG APP_NAME=lc_xrp
-
 WORKDIR /usr/app
 
 COPY --from=builder /usr/src/frontend/dist/frontend/browser /usr/app/frontend/dist/frontend/browser

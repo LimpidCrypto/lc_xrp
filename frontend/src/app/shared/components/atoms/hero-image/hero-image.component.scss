@@ -1,0 +1,43 @@
+.hero-image {
+    /* Set a specific height */
+    width: 100%;
+
+    /* Position and center the image to scale nicely on all screens */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    /* Place text in the middle of the image */
+    &__text-container {
+        @apply flex;
+        @apply flex-col;
+        @apply gap-1;
+        @apply sm:gap-2;
+        @apply md:gap-3;
+        @apply lg:gap-4;
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    &__text {
+      @apply text-white;
+      @apply text-xl;
+      @apply sm:text-3xl;
+      @apply md:text-5xl;
+      @apply lg:text-7xl;
+      font-weight: 700;
+    }
+
+    &__sub-text {
+      @apply text-dark-blue;
+      @apply text-xs;
+      @apply sm:text-base;
+      @apply md:text-2xl;
+      @apply lg:text-4xl;
+      font-weight: 600;
+    }
+}

@@ -18,7 +18,7 @@ services:
     image: adminer:latest
     restart: always
     ports:
-      - 3011:8080
+      - 3001:8080
     networks:
       - db
     environment:
@@ -30,7 +30,7 @@ services:
     image: postgres:15.3-alpine
     restart: unless-stopped
     ports:
-      - 3012:5432
+      - 3002:5432
     networks:
       - db
     volumes:
@@ -41,15 +41,15 @@ services:
     image: redis:latest
     restart: unless-stopped
     ports:
-      - 3013:6379
+      - 3003:6379
     networks:
       - redis
   mailer:
     image: mailtutan/mailtutan:latest
     restart: unless-stopped
     ports:
-      - 3014:1080
-      - 3015:1025
+      - 3004:1080
+      - 3005:1025
     networks:
       - mailer
 

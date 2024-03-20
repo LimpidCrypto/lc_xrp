@@ -24,14 +24,15 @@
                 "shd101wyy.markdown-preview-enhanced",
                 "IBM.output-colorizer",
                 "aaron-bond.better-comments",
-                // rust
+                "GitHub.copilot",
+                // project
                 "rust-lang.rust-analyzer",
                 "vadimcn.vscode-lldb",
                 "serayuzgur.crates",
                 "tamasfe.even-better-toml",
-                "ms-kubernetes-tools.vscode-kubernetes-tools"
-                // other
-                "GitHub.copilot"
+                "ms-kubernetes-tools.vscode-kubernetes-tools",
+                "42Crunch.vscode-openapi",
+                "bradlc.vscode-tailwindcss"
             ]
         }
     },
