@@ -30,7 +30,9 @@
                 "vadimcn.vscode-lldb",
                 "serayuzgur.crates",
                 "tamasfe.even-better-toml",
-                "ms-kubernetes-tools.vscode-kubernetes-tools"
+                "ms-kubernetes-tools.vscode-kubernetes-tools",
+                "42Crunch.vscode-openapi",
+                "bradlc.vscode-tailwindcss"
             ]
         }
     },

@@ -2,7 +2,11 @@ FROM rust:1.74-slim as builder
 
 RUN apt-get update \
     && apt-get install -y \
-    curl
+    curl \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    libssl3
 
 # Install Node.js and npm
 RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
@@ -23,7 +27,13 @@ RUN cargo build --release
 
 FROM debian:bookworm-slim
 
-ARG APP_NAME=lc_saas
+RUN apt-get update \
+    && apt-get install -y \
+    curl \
+    build-essential \
+    pkg-config \
+    libssl-dev \
+    libssl3
 
 WORKDIR /usr/app
 
