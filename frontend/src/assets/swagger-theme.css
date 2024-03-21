@@ -147,6 +147,7 @@
 .swagger-ui button,
 .swagger-ui html [type="button"] {
   -webkit-appearance: button;
+  appearance: button;
 }
 
 .swagger-ui [type="button"]::-moz-focus-inner,
@@ -199,6 +200,7 @@
 
 .swagger-ui [type="search"] {
   -webkit-appearance: textfield;
+  appearance: textfield;
   outline-offset: -2px;
 }
 
@@ -3385,6 +3387,7 @@
 .swagger-ui .input-reset {
   -webkit-appearance: none;
   -moz-appearance: none;
+  appearance: none;
 }
 
 .swagger-ui .button-reset::-moz-focus-inner,
@@ -10973,9 +10976,9 @@
   transition: all 0.5s;
 }
 
-.swagger-ui section.models .model-container:hover {
-  /* background: rgba(0, 0, 0, .07) */
-}
+/* .swagger-ui section.models .model-container:hover {
+   background: rgba(0, 0, 0, .07)
+} */
 
 .swagger-ui section.models .model-container:first-of-type {
   margin: 20px;
