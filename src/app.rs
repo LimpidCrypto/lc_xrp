@@ -65,25 +65,25 @@ impl Hooks for App {
         Ok(())
     }
 
-    // async fn after_routes(router: axum::Router, _ctx: &AppContext) -> Result<axum::Router> {
-    //     let user_db_uri: Option<&str> = option_env!("USER_DATABASE_URL");
-    //     if let Some(uri) = user_db_uri {
-    //         let user_db_config = Database {
-    //             uri: uri.to_string(),
-    //             enable_logging: false,
-    //             min_connections: 2,
-    //             max_connections: 10,
-    //             connect_timeout: 500,
-    //             idle_timeout: 500,
-    //             auto_migrate: false,
-    //             dangerously_truncate: false,
-    //             dangerously_recreate: false,
-    //         };
-    //         let user_db = db::connect(&user_db_config).await?;
+    async fn after_routes(router: axum::Router, _ctx: &AppContext) -> Result<axum::Router> {
+        let user_db_uri: Option<&str> = option_env!("USER_DATABASE_URL");
+        if let Some(uri) = user_db_uri {
+            let user_db_config = Database {
+                uri: uri.to_string(),
+                enable_logging: false,
+                min_connections: 2,
+                max_connections: 10,
+                connect_timeout: 500,
+                idle_timeout: 500,
+                auto_migrate: false,
+                dangerously_truncate: false,
+                dangerously_recreate: false,
+            };
+            let user_db = db::connect(&user_db_config).await?;
 
-    //         Ok(router.layer(Extension(user_db)))
-    //     } else {
-    //         Ok(router)
-    //     }
-    // }
+            Ok(router.layer(Extension(user_db)))
+        } else {
+            Ok(router)
+        }
+    }
 }
