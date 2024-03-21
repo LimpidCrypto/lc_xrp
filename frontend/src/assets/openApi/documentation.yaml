@@ -1,10 +1,10 @@
 openapi: "3.1.0"
 info:
-  title: "LimpidCrypto XRP API Documentation"
+  title: "SAAS API Documentation"
   version: "1.0.0"
-  description: "LimpidCrypto XRP API Documentation"
+  description: "SAAS API Documentation"
   contact:
-    name: "LimpidCrypto XRP API Documentation"
+    name: "SAAS API Documentation"
     email: "contact@limpidcrypto.com"
 servers:
   - url: https://xrp.limpidcrypto.com/api/v1/Test
@@ -15,39 +15,57 @@ servers:
     description: "Xahau Testnet API"
   - url: https://xrp.limpidcrypto.com/api/v1/SidechainTest
     description: "Sidechain Testnet API"
+tags:
+  - name: wallet
+    description: Manage XRP wallets
+schemes:
+  - https
 paths:
   /wallet/faucet:
     get:
       summary: Generates a new wallet and funds it
       description: Generates a new wallet and funds it on the selected network
       operationId: generate_faucet_wallet
+      tags:
+        - wallet
       responses:
         "200":
-          description: successful operation
+          description: successfully generated a new faucet wallet
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/Faucet"
+                $ref: "#/components/schemas/Faucet"
+        "500":
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
     Account:
       type: object
+      required:
+        - classic_address
       properties:
         classic_address:
           type: string
         address:
           type: string
-          nullable: true
         xaddress:
           type: string
-          nullable: true
         secret:
           type: string
-          nullable: true
     Faucet:
       type: object
+      required:
+        - account
+        - amount
       properties:
         account:
           $ref: "#/components/schemas/Account"
@@ -59,7 +77,6 @@ components:
           type: integer
           format: int32
           minimum: 0
-          nullable: true
         trace:
           $ref: "#/components/schemas/Trace"
     Trace:
