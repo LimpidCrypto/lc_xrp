@@ -1,10 +1,10 @@
 openapi: "3.1.0"
 info:
-  title: "SAAS API Documentation"
+  title: "LimpidCrypto XRP API"
   version: "1.0.0"
-  description: "SAAS API Documentation"
+  description: "LimpidCrypto XRP API"
   contact:
-    name: "SAAS API Documentation"
+    name: "LimpidCrypto XRP API"
     email: "contact@limpidcrypto.com"
 servers:
   - url: https://xrp.limpidcrypto.com/api/v1/Test
@@ -51,9 +51,9 @@ components:
     Account:
       type: object
       required:
-        - classic_address
+        - classicAddress
       properties:
-        classic_address:
+        classicAddress:
           type: string
         address:
           type: string
