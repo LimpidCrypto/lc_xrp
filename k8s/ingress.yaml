@@ -1,9 +1,9 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: lc-saas-ingress
+  name: lc-xrp-ingress
   labels:
-    name: lc-saas-ingress
+    name: lc-xrp-ingress
 spec:
   rules:
     - host: localhost
@@ -13,6 +13,6 @@ spec:
             path: "/"
             backend:
               service:
-                name: lc-saas-app-service
+                name: lc-xrp-app-service
                 port:
                   number: 80

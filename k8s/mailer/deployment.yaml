@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lc-saas-mailer-deployment
+  name: lc-xrp-mailer-deployment
   labels:
-    app: lc-saas-mailer
-  namespace: lc-saas-ns
+    app: lc-xrp-mailer
+  namespace: lc-xrp-ns
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: lc-saas-mailer
+      app: lc-xrp-mailer
   template:
     metadata:
       labels:
-        app: lc-saas-mailer
+        app: lc-xrp-mailer
     spec:
       containers:
-        - name: lc-saas-mailer
+        - name: lc-xrp-mailer
           image: mailtutan/mailtutan:latest
           ports:
             - containerPort: 1080
@@ -28,10 +28,10 @@ spec:
             - name: MAILTUTAN_HTTP_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-mailer-secret
+                  name: lc-xrp-mailer-secret
                   key: user
             - name: MAILTUTAN_HTTP_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-mailer-secret
+                  name: lc-xrp-mailer-secret
                   key: password

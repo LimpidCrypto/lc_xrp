@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lc-saas-db-deployment
+  name: lc-xrp-db-deployment
   labels:
-    app: lc-saas-db
-  namespace: lc-saas-ns
+    app: lc-xrp-db
+  namespace: lc-xrp-ns
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: lc-saas-db
+      app: lc-xrp-db
   template:
     metadata:
       labels:
-        app: lc-saas-db
+        app: lc-xrp-db
     spec:
       containers:
-        - name: lc-saas-db
+        - name: lc-xrp-db
           image: postgres:15.3-alpine
           ports:
             - containerPort: 5432
@@ -27,17 +27,17 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-db-secret
+                  name: lc-xrp-db-secret
                   key: postgres-db
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-db-secret
+                  name: lc-xrp-db-secret
                   key: postgres-user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-db-secret
+                  name: lc-xrp-db-secret
                   key: postgres-password
           resources:
             limits:
@@ -46,4 +46,4 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: lc-saas-db-pvc
+            claimName: lc-xrp-db-pvc

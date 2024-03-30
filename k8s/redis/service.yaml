@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: lc-saas-app-service
-  namespace: lc-saas-ns
+  name: lc-xrp-app-service
+  namespace: lc-xrp-ns
 spec:
   selector:
-    app: lc-saas-app
+    app: lc-xrp-app
   ports:
     - port: 6379
       targetPort: 6379

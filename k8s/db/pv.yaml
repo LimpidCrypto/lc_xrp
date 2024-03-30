@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: lc-saas-db-pv
+  name: lc-xrp-db-pv
   labels:
     app: postgres
 spec:
@@ -10,6 +10,6 @@ spec:
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: lc-saas-db-sc
+  storageClassName: lc-xrp-db-sc
   hostPath:
     path: /data/postgres

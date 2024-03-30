@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lc-saas-app-deployment
+  name: lc-xrp-app-deployment
   labels:
-    app: lc-saas-app
-  namespace: lc-saas-ns
+    app: lc-xrp-app
+  namespace: lc-xrp-ns
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: lc-saas-app
+      app: lc-xrp-app
   template:
     metadata:
       labels:
-        app: lc-saas-app
+        app: lc-xrp-app
     spec:
       # imagePullSecrets:
-      #   - name: lc-saas-app-pull-secret
+      #   - name: lc-xrp-app-pull-secret
       containers:
-        - name: lc-saas-app
+        - name: lc-xrp-app
           image: limidcrypto1/lc_xrp:blue
           ports:
             - containerPort: 80
@@ -30,24 +30,24 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-db-secret
+                  name: lc-xrp-db-secret
                   key: postgres-db
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-db-secret
+                  name: lc-xrp-db-secret
                   key: postgres-user
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: lc-saas-db-secret
+                  name: lc-xrp-db-secret
                   key: postgres-password
             - name: DATABASE_URL
-              value: postgres://limpid:limpid@lc-saas-db-service:5432/limpid
+              value: postgres://limpid:limpid@lc-xrp-db-service:5432/limpid
             - name: REDIS_URL
-              value: redis://lc-saas-redis-service:6379
+              value: redis://lc-xrp-redis-service:6379
             - name: MAILER_HOST
-              value: lc-saas-mailer-service
+              value: lc-xrp-mailer-service
             - name: SERVER_PORT
               value: "80"
           # - name: USER_DATABASE_URL
